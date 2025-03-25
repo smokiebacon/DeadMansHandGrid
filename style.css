@@ -1,0 +1,154 @@
+.grids-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, auto);
+  gap: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.grids-wrapper.horizontal {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: 1fr;
+  gap: 20px;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.grids-wrapper.vertical {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, auto);
+  gap: 20px;
+  position: absolute;
+  top: 42%;
+  left: calc(45% - 370px);
+  transform: translate(-50%, 0);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 50px);
+  grid-template-rows: repeat(6, 50px);
+  gap: 2px;
+  border: 2px solid #000;
+}
+
+.grid-container.shared.hide {
+  display: none;
+}
+
+.grid-item {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  user-select: none;
+  border: 1px solid #999;
+  background-color: #fff;
+}
+
+.grid-item[data-state="checkmark"] {
+  color: green;
+}
+
+.grid-item[data-state="x"] {
+  color: red;
+}
+
+.grid-item[data-state="question"] {
+  color: blue;
+}
+
+.grid-item[data-state="not"] {
+  color: red;
+  font-size: 0.9em; /* Make "no" text slightly smaller */
+}
+
+.grid-section {
+  text-align: center;
+}
+
+.grid-section h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.grid-section h3 {
+  margin: 2px 0;
+  font-size: 0.9em;
+  font-weight: normal;
+}
+
+.grid-section:first-child h3 {
+  text-align: left;
+  margin-left: 20px;
+}
+
+h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.horizontal-names {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  height: 120px; /* Adjust based on your needs */
+  margin-bottom: 10px;
+}
+
+.horizontal-names h3 {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  text-align: start;
+  margin: 0;
+  padding: 5px;
+  font-size: 0.9em;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.vertical-names {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  left: -150px; /* Adjust this value as needed */
+  height: 100%;
+}
+.vertical-names h3 {
+  writing-mode: horizontal-tb;
+  text-align: right;
+  margin: 0;
+  padding: 5px;
+  font-size: 0.9em;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.vertical-names.input-names {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  border: 1px solid blue;
+  left: -150px; /* Adjust this value as needed */
+  height: 100%;
+}
+
+.input-names input {
+  display: flex;
+  flex-direction: column;
+  width: 100px; /* Adjust width as needed */
+  margin: 10px;
+  padding: 2px 5px;
+  font-size: 0.9em;
+  text-align: right;
+}
