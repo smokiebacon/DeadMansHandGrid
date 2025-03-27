@@ -128,4 +128,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     })
   })
+  document.getElementById("clearButton").addEventListener("click", function () {
+    const gridItems = document.querySelectorAll(".grid-item")
+    console.log("clicked")
+    gridItems.forEach((item) => {
+      updateCell(item, STATES.EMPTY)
+    })
+  })
 })
