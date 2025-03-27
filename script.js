@@ -112,6 +112,22 @@ document.addEventListener("DOMContentLoaded", function () {
     })
   }
 
+  function isInCheckmarkPath(cell, grid) {
+    const cellIndex = Array.from(grid.children).indexOf(cell)
+    const cellRow = Math.floor(cellIndex / 6)
+    const cellColumn = cellIndex % 6
+
+    // Check if cell is in any checkmark's row or column
+    return Array.from(grid.children).some((otherCell, index) => {
+      if (otherCell.state === STATES.CHECKMARK) {
+        const checkRow = Math.floor(index / 6)
+        const checkColumn = index % 6
+        return cellRow === checkRow || cellColumn === checkColumn
+      }
+      return false
+    })
+  }
+
   function updateCell(cell, newState) {
     cell.state = newState
     cell.innerHTML = SYMBOLS[newState]
@@ -131,6 +147,9 @@ document.addEventListener("DOMContentLoaded", function () {
           break
 
         case STATES.NOT:
+          if (isInCheckmarkPath(cell, grid)) {
+            return
+          }
           // Check if there's already a checkmark in the row or column
           if (hasCheckmarkInRowOrColumn(cell, grid)) {
             // Skip to question mark if there's already a checkmark
@@ -147,7 +166,12 @@ document.addEventListener("DOMContentLoaded", function () {
           break
 
         case STATES.QUESTION:
-          updateCell(cell, STATES.EMPTY)
+          // Check if the cell is in a checkmark's path
+          if (isInCheckmarkPath(cell, grid)) {
+            updateCell(cell, STATES.X)
+          } else {
+            updateCell(cell, STATES.EMPTY)
+          }
           break
       }
     })
