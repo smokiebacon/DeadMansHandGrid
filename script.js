@@ -80,10 +80,34 @@ document.addEventListener("DOMContentLoaded", function () {
       (_, index) => index % 6 === columnIndex
     )
 
-    // Clear X's
+    // Get all checkmark cells
+    const checkmarkCells = Array.from(grid.children).filter(
+      (cell) => cell.state === STATES.CHECKMARK
+    )
+
+    // Clear X's only if they're not part of any checkmark's row or column
     ;[...rowCells, ...columnCells].forEach((otherCell) => {
       if (otherCell.state === STATES.X) {
-        updateCell(otherCell, STATES.EMPTY)
+        // Check if this X is part of any checkmark's row or column
+        const shouldKeepX = checkmarkCells.some((checkmark) => {
+          const checkRowIndex = Math.floor(
+            Array.from(grid.children).indexOf(checkmark) / 6
+          )
+          const checkColumnIndex =
+            Array.from(grid.children).indexOf(checkmark) % 6
+          const otherCellIndex = Array.from(grid.children).indexOf(otherCell)
+          const otherCellRow = Math.floor(otherCellIndex / 6)
+          const otherCellColumn = otherCellIndex % 6
+
+          return (
+            checkRowIndex === otherCellRow ||
+            checkColumnIndex === otherCellColumn
+          )
+        })
+
+        if (!shouldKeepX) {
+          updateCell(otherCell, STATES.EMPTY)
+        }
       }
     })
   }
@@ -130,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
   })
   document.getElementById("clearButton").addEventListener("click", function () {
     const gridItems = document.querySelectorAll(".grid-item")
-    console.log("clicked")
     gridItems.forEach((item) => {
       updateCell(item, STATES.EMPTY)
     })
